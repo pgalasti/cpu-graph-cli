@@ -14,6 +14,7 @@
 #include "FontColorCli.h"
 
 const char CLEAR_SCREEN[] = "\033[2J\033[H";
+const double KB_PER_GB = KB_PER_GB;
 
 void displayCpuInfo(const CpuCli::CpuInfo& info);
 void displayHeader(const CpuCli::MemoryMetrics& mem);
@@ -53,10 +54,10 @@ void displayCpuInfo(const CpuCli::CpuInfo& info) {
 
 void displayHeader(const CpuCli::MemoryMetrics& mem) {
 
-  const double totalGB = mem.totalKB     / 1048576.0;
-  const double usedGB  = mem.usedKB      / 1048576.0;
-  const double freeGB  = mem.freeKB      / 1048576.0;
-  const double availGB = mem.availableKB / 1048576.0;
+  const double totalGB = mem.totalKB     / KB_PER_GB;
+  const double usedGB  = mem.usedKB      / KB_PER_GB;
+  const double freeGB  = mem.freeKB      / KB_PER_GB;
+  const double availGB = mem.availableKB / KB_PER_GB;
   const unsigned short usedPct = mem.totalKB > 0
       ? static_cast<unsigned short>(mem.usedKB * 100 / mem.totalKB) : 0;
 
