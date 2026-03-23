@@ -1,6 +1,6 @@
 # cpu-graph-cli
 
-A simple and lightweight CLI monitoring tool for CPU and system memory on Linux systems.
+A simple and lightweight CLI monitoring tool for CPU and system memory on Linux and macOS systems.
 
 ## In Use
 
