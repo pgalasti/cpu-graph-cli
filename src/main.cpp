@@ -8,13 +8,20 @@
 
 #include <g-lib/util/Stopwatch.h>
 
-#include "CpuParser.h"
+#ifdef __APPLE__
+  #include "MacOsMetricsProvider.h"
+  using MetricsProvider = CpuCli::MacOsMetricsProvider;
+#else
+  #include "LinuxMetricsProvider.h"
+  using MetricsProvider = CpuCli::LinuxMetricsProvider;
+#endif
+
 #include "CpuMetrics.h"
 #include "GraphOutputCli.h"
 #include "FontColorCli.h"
 
 const char CLEAR_SCREEN[] = "\033[2J\033[H";
-const double KB_PER_GB = KB_PER_GB;
+const double KB_PER_GB = 1024.0 * 1024.0; // 1 GB = 1,048,576 KB
 
 void displayCpuInfo(const CpuCli::CpuInfo& info);
 void displayHeader(const CpuCli::MemoryMetrics& mem);
@@ -82,7 +89,7 @@ void displayHeader(const CpuCli::MemoryMetrics& mem) {
 
 void displayProgressMetrics() {
 
-  CpuCli::CpuParser parser;
+  MetricsProvider parser;
   GLib::Util::Stopwatch sw("progress");
 
   for (;;) {

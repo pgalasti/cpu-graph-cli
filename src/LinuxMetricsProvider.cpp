@@ -1,4 +1,4 @@
-#include "CpuParser.h"
+#include "LinuxMetricsProvider.h"
 
 #include <fstream>
 #include <sstream>
@@ -10,11 +10,11 @@
 
 using namespace CpuCli;
 
-CpuParser::CpuParser() {
+LinuxMetricsProvider::LinuxMetricsProvider() {
   m_cpuInfo = readCpuInfo();
 }
 
-CpuInfo CpuParser::readCpuInfo() const {
+CpuInfo LinuxMetricsProvider::readCpuInfo() const {
 
   CpuInfo info;
   GLib::Util::StringParser parser;
@@ -51,7 +51,7 @@ CpuInfo CpuParser::readCpuInfo() const {
   return info;
 }
 
-std::vector<CpuTick> CpuParser::readCpuTicks() const {
+std::vector<CpuTick> LinuxMetricsProvider::readCpuTicks() const {
 
   std::vector<CpuTick> ticks;
   std::ifstream file("/proc/stat");
@@ -76,7 +76,7 @@ std::vector<CpuTick> CpuParser::readCpuTicks() const {
   return ticks;
 }
 
-MemoryMetrics CpuParser::readMemory() const {
+MemoryMetrics LinuxMetricsProvider::readMemory() const {
 
   MemoryMetrics mem;
   GLib::Util::StringParser parser;
@@ -105,7 +105,7 @@ MemoryMetrics CpuParser::readMemory() const {
   return mem;
 }
 
-CpuMetrics CpuParser::Parse() {
+CpuMetrics LinuxMetricsProvider::Parse() {
 
   CpuMetrics metrics;
   metrics.memory = readMemory();
