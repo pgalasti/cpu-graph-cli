@@ -1,8 +1,8 @@
-#ifndef CPU_PARSER_H
-#define CPU_PARSER_H
+#ifndef LINUX_METRICS_PROVIDER_H
+#define LINUX_METRICS_PROVIDER_H
 
 #include <vector>
-#include "CpuMetrics.h"
+#include "IMetricsProvider.h"
 
 namespace CpuCli {
 
@@ -25,13 +25,13 @@ namespace CpuCli {
     }
   };
 
-  class CpuParser {
+  class LinuxMetricsProvider : public IMetricsProvider {
   public:
-    CpuParser();
-    ~CpuParser() {}
+    LinuxMetricsProvider();
+    ~LinuxMetricsProvider() override = default;
 
-    CpuMetrics Parse();
-    const CpuInfo& getCpuInfo() const { return m_cpuInfo; }
+    CpuMetrics Parse() override;
+    const CpuInfo& getCpuInfo() const override { return m_cpuInfo; }
 
   private:
     std::vector<CpuTick> m_prevTicks;
@@ -45,4 +45,4 @@ namespace CpuCli {
 
 } // namespace CpuCli
 
-#endif // CPU_PARSER_H
+#endif // LINUX_METRICS_PROVIDER_H
